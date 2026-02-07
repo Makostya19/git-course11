@@ -2,14 +2,15 @@
   "name": "movie-search",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
+"scripts": {
   "dev": "next dev",
   "build": "next build",
   "start": "next start",
   "lint": "eslint",
   "prepare": "husky",
   "predeploy": "npm run build",
-  "deploy": "gh-pages -d build"
+  "deploy": "gh-pages -d build",
+  "test": "echo \"No tests yet\""
   },
   "dependencies": {
     "antd": "^6.2.3",
