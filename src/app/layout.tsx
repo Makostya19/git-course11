@@ -1,6 +1,7 @@
 import "antd/dist/reset.css";
 import type { Metadata } from "next";
 import "./globals.css";
+import AntdLayout from "./components/AntdLayout";
 
 export const metadata: Metadata = {
   title: "Movie Search App",
@@ -14,7 +15,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <AntdLayout>{children}</AntdLayout>
+      </body>
     </html>
   );
 }

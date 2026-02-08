@@ -2,15 +2,16 @@
   "name": "movie-search",
   "version": "0.1.0",
   "private": true,
-"scripts": {
-  "dev": "next dev",
-  "build": "next build",
-  "start": "next start",
-  "lint": "eslint",
-  "prepare": "husky",
-  "predeploy": "npm run build",
-  "deploy": "gh-pages -d build",
-  "test": "echo \"No tests yet\""
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint . --ext .js,.ts,.jsx,.tsx",
+    "prepare": "husky install",
+    "export": "next export",
+    "predeploy": "npm run build && npm run export",
+    "deploy": "gh-pages -d out",
+    "test": "echo \"No tests yet\""
   },
   "dependencies": {
     "antd": "^6.2.3",
@@ -30,5 +31,11 @@
     "lint-staged": "^16.2.7",
     "prettier": "^3.8.1",
     "typescript": "^5"
+  },
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   }
 }

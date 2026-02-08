@@ -9,8 +9,11 @@ type Movie = {
 };
 
 export default async function Page() {
+  const apiKey =
+    process.env.TMDB_API_KEY || process.env.NEXT_PUBLIC_TMDB_API_KEY;
+
   const res = await fetch(
-    `https://api.themoviedb.org/3/search/movie?query=return&api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`,
+    `https://api.themoviedb.org/3/search/movie?query=return&api_key=${apiKey}`,
     { cache: "no-store" }
   );
 
