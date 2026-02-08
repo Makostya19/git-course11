@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint . --ext .js,.ts,.jsx,.tsx",
-    "prepare": "husky install",
+    "prepare": "husky",
     "export": "next export",
     "predeploy": "npm run build && npm run export",
     "deploy": "gh-pages -d out",
