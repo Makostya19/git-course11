@@ -11,6 +11,7 @@ const nextConfig = {
 
         basePath: "/git-course11",
         assetPrefix: "/git-course11/",
+        trailingSlash: true, 
       }),
 
   images: {
