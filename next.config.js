@@ -8,8 +8,9 @@ const nextConfig = {
     ? {}
     : {
         output: "export",
-        basePath: "/movie-search",
-        assetPrefix: "/movie-search/",
+
+        basePath: "/git-course11",
+        assetPrefix: "/git-course11/",
       }),
 
   images: {
