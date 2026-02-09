@@ -1,61 +1,62 @@
-"use client";
+'use client';
 
-import { Card, Typography, Tag, Rate } from "antd";
-import Image from "next/image";
-import { format } from "date-fns";
-import { truncateText } from "../utils/truncateText";
+import React from 'react';
+import Image from 'next/image';
+import { format, parseISO } from 'date-fns';
+import { ru } from 'date-fns/locale';
+import { truncateText } from '../utils/truncateText';
+import styles from './MovieCard.module.css';
 
-const { Title, Paragraph, Text } = Typography;
-
-type Movie = {
+interface MovieCardProps {
   id: number;
   title: string;
   overview: string;
-  release_date: string;
   poster_path: string | null;
-  vote_average?: number;
-};
+  release_date: string;
+  vote_average: number;
+}
 
-export default function MovieCard({ movie }: { movie: Movie }) {
+const GENRES = ['Action', 'Drama', 'Thriller'];
+
+export default function MovieCard({
+  title,
+  overview,
+  poster_path,
+  release_date,
+}: MovieCardProps) {
+  const imageUrl = poster_path
+    ? `https://image.tmdb.org/t/p/w500${poster_path}`
+    : 'https://via.placeholder.com/150x200?text=No+Image';
+
+  const releaseDate = release_date
+    ? format(parseISO(release_date), 'MMMM d, yyyy', { locale: ru })
+    : 'N/A';
+
   return (
-    <Card
-      hoverable
-      cover={
-        movie.poster_path ? (
-          <Image
-            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-            alt={movie.title}
-            width={300}
-            height={450}
-            style={{ objectFit: "cover" }}
-          />
-        ) : null
-      }
-    >
-      <Title level={5}>{movie.title}</Title>
-
-      <Text type="secondary">
-        {movie.release_date
-          ? format(new Date(movie.release_date), "dd MMM yyyy")
-          : "—"}
-      </Text>
-
-      <div style={{ margin: "8px 0" }}>
-        <Tag>Action</Tag>
-        <Tag>Drama</Tag>
-        <Tag>Comedy</Tag>
+    <div className={styles.card}>
+      <div className={styles.imageContainer}>
+        <Image
+          src={imageUrl}
+          alt={title}
+          width={150}
+          height={200}
+          className={styles.image}
+        />
       </div>
+      <div className={styles.content}>
+        <h3 className={styles.title}>{title}</h3>
+        <p className={styles.date}>{releaseDate}</p>
 
-      <Rate
-        disabled
-        allowHalf
-        value={(movie.vote_average ?? 0) / 2}
-        style={{ fontSize: 14, marginBottom: 8 }}
-      />
+        <div className={styles.genres}>
+          {GENRES.map((genre) => (
+            <span key={genre} className={styles.genre}>
+              {genre}
+            </span>
+          ))}
+        </div>
 
-      <Paragraph>
-        {truncateText(movie.overview, 120)}
-      </Paragraph>
-    </Card>
+        <p className={styles.overview}>{truncateText(overview, 150)}</p>
+      </div>
+    </div>
   );
 }

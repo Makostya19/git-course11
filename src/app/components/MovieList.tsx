@@ -1,35 +1,42 @@
-"use client";
+'use client';
 
-import { Col, Row, Typography } from "antd";
-import MovieCard from "./MovieCard";
+import React from 'react';
+import { Row, Col, Empty } from 'antd';
+import MovieCard from './MovieCard';
+import styles from './MovieList.module.css';
 
-const { Title } = Typography;
-
-type Movie = {
+interface Movie {
   id: number;
   title: string;
   overview: string;
-  release_date: string;
   poster_path: string | null;
-};
+  release_date: string;
+  vote_average: number;
+}
 
-export default function MovieList({ movies }: { movies: Movie[] }) {
+interface MovieListProps {
+  initialMovies: Movie[];
+}
+
+export default function MovieList({ initialMovies }: MovieListProps) {
+  if (!initialMovies || initialMovies.length === 0) {
+    return <Empty description="No movies found" />;
+  }
+
   return (
-    <div
-      style={{
-        maxWidth: 1200,
-        margin: "0 auto",
-        padding: "32px 24px",
-      }}
-    >
-      <Title level={2} style={{ marginBottom: 32 }}>
-        Movies
-      </Title>
-
-      <Row gutter={[24, 32]}>
-        {movies.map((movie) => (
-          <Col key={movie.id} xs={24} sm={12} md={8} lg={6}>
-            <MovieCard movie={movie} />
+    <div className={styles.container}>
+      <h2>Popular Movies</h2>
+      <Row gutter={[16, 16]}>
+        {initialMovies.map((movie) => (
+          <Col key={movie.id} xs={24} sm={24} md={12} lg={8} xl={8}>
+            <MovieCard
+              id={movie.id}
+              title={movie.title}
+              overview={movie.overview}
+              poster_path={movie.poster_path}
+              release_date={movie.release_date}
+              vote_average={movie.vote_average}
+            />
           </Col>
         ))}
       </Row>

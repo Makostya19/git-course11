@@ -1,11 +1,10 @@
-import "antd/dist/reset.css";
-import type { Metadata } from "next";
-import "./globals.css";
-import AntdLayout from "./components/AntdLayout";
+import type { Metadata } from 'next';
+import { ConfigProvider } from 'antd';
+import './globals.css';
 
 export const metadata: Metadata = {
-  title: "Movie Search App",
-  description: "Search movies using TMDB API",
+  title: 'Movie Search App',
+  description: 'Search for movies using MovieDB API',
 };
 
 export default function RootLayout({
@@ -14,9 +13,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="ru">
       <body>
-        <AntdLayout>{children}</AntdLayout>
+        <ConfigProvider>{children}</ConfigProvider>
       </body>
     </html>
   );
