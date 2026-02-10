@@ -10,8 +10,8 @@ const nextConfig = {
         output: "export",
 
         basePath: "/git-course11",
-        assetPrefix: "/git-course11/",
-        trailingSlash: true, 
+        assetPrefix: "/git-course11",
+        trailingSlash: true,
       }),
 
   images: {
