@@ -16,12 +16,6 @@
     "next/core-web-vitals"
   ],
   "plugins": ["@typescript-eslint"],
-  "ignorePatterns": [
-    ".next/**",
-    "out/**",
-    "build/**",
-    "next-env.d.ts"
-  ],
+  "ignorePatterns": [".next/**", "out/**", "build/**", "next-env.d.ts"],
   "rules": {}
 }
-

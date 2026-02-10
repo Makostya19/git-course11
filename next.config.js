@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const isDev = process.env.NODE_ENV === "development";
+const isDev = process.env.NODE_ENV === 'development';
 
 const nextConfig = {
   reactStrictMode: true,
@@ -7,21 +7,21 @@ const nextConfig = {
   ...(isDev
     ? {}
     : {
-        output: "export",
+        output: 'export',
 
-        basePath: "/git-course11",
-        assetPrefix: "/git-course11",
+        basePath: '/git-course11',
+        assetPrefix: '/git-course11',
         trailingSlash: true,
       }),
 
   images: {
-    domains: ["image.tmdb.org"],
+    domains: ['image.tmdb.org'],
 
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "image.tmdb.org",
-        pathname: "/t/p/**",
+        protocol: 'https',
+        hostname: 'image.tmdb.org',
+        pathname: '/t/p/**',
       },
     ],
 

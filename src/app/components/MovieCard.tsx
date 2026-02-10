@@ -18,12 +18,7 @@ interface MovieCardProps {
 
 const GENRES = ['Action', 'Drama', 'Thriller'];
 
-export default function MovieCard({
-  title,
-  overview,
-  poster_path,
-  release_date,
-}: MovieCardProps) {
+export default function MovieCard({ title, overview, poster_path, release_date }: MovieCardProps) {
   const imageUrl = poster_path
     ? `https://image.tmdb.org/t/p/w500${poster_path}`
     : 'https://via.placeholder.com/150x200?text=No+Image';
@@ -35,13 +30,7 @@ export default function MovieCard({
   return (
     <div className={styles.card}>
       <div className={styles.imageContainer}>
-        <Image
-          src={imageUrl}
-          alt={title}
-          width={150}
-          height={200}
-          className={styles.image}
-        />
+        <Image src={imageUrl} alt={title} width={150} height={200} className={styles.image} />
       </div>
       <div className={styles.content}>
         <h3 className={styles.title}>{title}</h3>
