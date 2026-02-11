@@ -3,7 +3,7 @@
 const nextConfig = {
   reactStrictMode: true,
   trailingSlash: true,
-  output: 'export', 
+  output: 'export',
 
   images: {
     domains: ['image.tmdb.org'],
