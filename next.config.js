@@ -3,6 +3,7 @@
 const nextConfig = {
   reactStrictMode: true,
   trailingSlash: true,
+  output: 'export', 
 
   images: {
     domains: ['image.tmdb.org'],
@@ -18,7 +19,7 @@ const nextConfig = {
 
   env: {
     NEXT_PUBLIC_TMDB_API_KEY: process.env.NEXT_PUBLIC_TMDB_API_KEY,
-    NEXT_PUBLIC_MOVIEDB_API_BASE_URL: process.env.NEXT_PUBLIC_MOVIEDB_API_BASE_URL, // добавляем
+    NEXT_PUBLIC_MOVIEDB_API_BASE_URL: process.env.NEXT_PUBLIC_MOVIEDB_API_BASE_URL,
   },
 };
 

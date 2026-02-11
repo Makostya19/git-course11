@@ -2,19 +2,18 @@
   "name": "movie-search-app",
   "version": "1.0.0",
   "private": true,
+  "homepage": "https://Makostya19.github.io/git-course11",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "deploy": "next build",
     "start": "next start",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --ext .ts,.tsx --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "clean": "rimraf .next out",
+    "clean": "npx rimraf out",
     "prepare": "husky install",
-    "export": "next export",
-    "deploy:gh": "npm run clean && npm run build && npm run export && npx gh-pages -d out"
+    "deploy:gh": "npm run clean && npm run build && npx gh-pages -d out"
   },
   "dependencies": {
     "@ant-design/icons": "^5.3.0",
@@ -30,6 +29,7 @@
     "@types/react-dom": "^18.2.0",
     "eslint": "^8.56.0",
     "eslint-config-next": "^15.0.0",
+    "gh-pages": "^6.3.0",
     "husky": "^8.0.0",
     "lint-staged": "^15.2.0",
     "prettier": "^3.1.0",
