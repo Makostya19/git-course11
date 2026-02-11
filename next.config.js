@@ -1,22 +1,11 @@
 /** @type {import('next').NextConfig} */
-const isDev = process.env.NODE_ENV === 'development';
 
 const nextConfig = {
   reactStrictMode: true,
-
-  ...(isDev
-    ? {}
-    : {
-        output: 'export',
-
-        basePath: '/git-course11',
-        assetPrefix: '/git-course11',
-        trailingSlash: true,
-      }),
+  trailingSlash: true,
 
   images: {
     domains: ['image.tmdb.org'],
-
     remotePatterns: [
       {
         protocol: 'https',
@@ -24,12 +13,12 @@ const nextConfig = {
         pathname: '/t/p/**',
       },
     ],
-
     unoptimized: true,
   },
 
   env: {
     NEXT_PUBLIC_TMDB_API_KEY: process.env.NEXT_PUBLIC_TMDB_API_KEY,
+    NEXT_PUBLIC_MOVIEDB_API_BASE_URL: process.env.NEXT_PUBLIC_MOVIEDB_API_BASE_URL, // добавляем
   },
 };
 
