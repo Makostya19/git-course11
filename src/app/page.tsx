@@ -86,13 +86,7 @@ export default function Page() {
         />
       </div>
 
-      {error && (
-        <Alert
-          type="error"
-          message={error}
-          style={{ marginBottom: 16 }}
-        />
-      )}
+      {error && <Alert type="error" message={error} style={{ marginBottom: 16 }} />}
 
       <div style={{ marginTop: 56 }}>
         <Spin
@@ -118,9 +112,7 @@ export default function Page() {
           )}
 
           {!isInitialLoad && !loading && !error && movies.length === 0 && (
-            <div style={{ textAlign: 'center', marginTop: 40 }}>
-              No movies found
-            </div>
+            <div style={{ textAlign: 'center', marginTop: 40 }}>No movies found</div>
           )}
         </Spin>
       </div>
