@@ -14,9 +14,7 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
       if (localStorage.getItem('guest_session_id')) return;
 
       try {
-        const res = await fetch(
-          `${BASE_URL}/authentication/guest_session/new?api_key=${API_KEY}`
-        );
+        const res = await fetch(`${BASE_URL}/authentication/guest_session/new?api_key=${API_KEY}`);
         const data = await res.json();
         localStorage.setItem('guest_session_id', data.guest_session_id);
       } catch (error) {

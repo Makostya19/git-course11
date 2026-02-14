@@ -22,9 +22,7 @@ export function GenreProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const fetchGenres = async () => {
       try {
-        const res = await fetch(
-          `${BASE_URL}/genre/movie/list?api_key=${API_KEY}&language=ru-RU`
-        );
+        const res = await fetch(`${BASE_URL}/genre/movie/list?api_key=${API_KEY}&language=ru-RU`);
         const data = await res.json();
         setGenres(data.genres || []);
       } catch (error) {
@@ -35,11 +33,7 @@ export function GenreProvider({ children }: { children: React.ReactNode }) {
     fetchGenres();
   }, [API_KEY, BASE_URL]);
 
-  return (
-    <GenreContext.Provider value={{ genres }}>
-      {children}
-    </GenreContext.Provider>
-  );
+  return <GenreContext.Provider value={{ genres }}>{children}</GenreContext.Provider>;
 }
 
 export const useGenres = () => useContext(GenreContext);
