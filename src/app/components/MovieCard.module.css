@@ -1,102 +1,58 @@
 .card {
+  position: relative;
   display: flex;
-  gap: 16px;
-  padding: 16px;
-  height: 100%;
-  border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease;
+  gap: 20px;
   background: #fff;
-  overflow: hidden;
+  padding: 16px;
 }
 
-.card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+.ratingCircle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.imageContainer {
-  flex-shrink: 0;
-  width: 150px;
-  height: 200px;
-}
-
-.image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 2px;
+.imageContainer img {
+  border-radius: 6px;
 }
 
 .content {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  min-width: 0;
 }
 
-.title {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 600;
-  color: #000;
-  line-height: 1.3;
+.genreContainer {
+  margin-bottom: 8px;
 }
 
-.date {
-  margin: 0;
-  color: #999;
-  font-size: 12px;
-}
+/* 📱 ТОЛЬКО МОБИЛКА */
+@media (max-width: 768px) {
+  .card {
+    flex-direction: column;
+  }
 
-.genres {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  margin: 2px 0;
-}
+  .imageContainer {
+    display: flex;
+    gap: 12px;
+  }
 
-.genre {
-  font-size: 11px;
-  color: #999;
-  display: inline-block;
-}
+  .imageContainer img {
+    width: 90px !important;
+    height: 135px !important;
+  }
 
-.genre::after {
-  content: ',';
-  margin-right: 4px;
-}
+  .content {
+    margin-top: 8px;
+  }
 
-.genre:last-child::after {
-  content: '';
-  margin-right: 0;
-}
-
-.rating {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin: 4px 0;
-}
-
-.ratingValue {
-  font-weight: 600;
-  color: #ffc069;
-  font-size: 13px;
-  background: #fff7e6;
-  padding: 2px 6px;
-  border-radius: 3px;
-  line-height: 1;
-}
-
-.overview {
-  margin: 4px 0 0 0;
-  color: #666;
-  font-size: 13px;
-  line-height: 1.5;
-  flex: 1;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  word-break: break-word;
+  .ratingCircle {
+    position: static;
+    margin-left: auto;
+  }
 }

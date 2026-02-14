@@ -1,3 +1,3 @@
 # Movie Search App
 
-🔗 Live demo: https://makostya19.github.io/git-course11/
+🔗 Live demo: (https://git-course11.vercel.app/)

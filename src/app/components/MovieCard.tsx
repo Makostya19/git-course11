@@ -64,7 +64,6 @@ export default function MovieCard({
           body: JSON.stringify({ value }),
         }
       );
-
       setUserRating(value);
     } catch (error) {
       console.error('Failed to rate movie', error);
@@ -75,21 +74,10 @@ export default function MovieCard({
 
   return (
     <div className={styles.card}>
+      {/* рейтинг — как было */}
       <div
-        style={{
-          position: 'absolute',
-          top: 10,
-          right: 10,
-          width: 40,
-          height: 40,
-          borderRadius: '50%',
-          backgroundColor: getRatingColor(vote_average),
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: '#000',
-          fontWeight: 'bold',
-        }}
+        className={styles.ratingCircle}
+        style={{ backgroundColor: getRatingColor(vote_average) }}
       >
         {vote_average.toFixed(1)}
       </div>
@@ -102,13 +90,15 @@ export default function MovieCard({
         <h3 className={styles.title}>{title}</h3>
         <p className={styles.date}>{releaseDate}</p>
 
-        <div style={{ marginBottom: 8 }}>
+        <div className={styles.genreContainer}>
           {movieGenres.map((genre) => (
             <Tag key={genre.id}>{genre.name}</Tag>
           ))}
         </div>
 
-        <p className={styles.overview}>{truncateText(overview, 150)}</p>
+        <p className={styles.overview}>
+          {truncateText(overview, 150)}
+        </p>
 
         <Rate
           allowHalf
