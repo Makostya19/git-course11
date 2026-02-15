@@ -38,8 +38,8 @@ export default function MovieList({ initialMovies }: MovieListProps) {
               poster_path={movie.poster_path}
               release_date={movie.release_date}
               vote_average={movie.vote_average}
-              genre_ids={movie.genre_ids} 
-              rating={movie.rating}    
+              genre_ids={movie.genre_ids}
+              rating={movie.rating}
             />
           </Col>
         ))}
