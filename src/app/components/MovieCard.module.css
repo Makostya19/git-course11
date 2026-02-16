@@ -25,34 +25,37 @@
 
 .content {
   flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .genreContainer {
   margin-bottom: 8px;
 }
 
-/* 📱 ТОЛЬКО МОБИЛКА */
 @media (max-width: 768px) {
   .card {
-    flex-direction: column;
+    flex-wrap: wrap;
   }
 
   .imageContainer {
-    display: flex;
-    gap: 12px;
-  }
-
-  .imageContainer img {
-    width: 90px !important;
-    height: 135px !important;
+    flex: 0 0 auto;
   }
 
   .content {
-    margin-top: 8px;
+    flex: 1;
+    min-width: 0;
   }
 
-  .ratingCircle {
-    position: static;
-    margin-left: auto;
+  /* ✅ ВАЖНО: делаем overview отдельной строкой */
+  .overview {
+    width: 100%;
+    margin-top: 12px;
+  }
+
+  /* уменьшаем постер */
+  .imageContainer img {
+    width: 100px !important;
+    height: 150px !important;
   }
 }

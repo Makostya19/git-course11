@@ -22,27 +22,39 @@ export default function RatedMovieList() {
   const API_KEY = process.env.NEXT_PUBLIC_MOVIEDB_API_KEY;
   const BASE_URL = process.env.NEXT_PUBLIC_MOVIEDB_API_BASE_URL;
 
-  useEffect(() => {
+  const fetchRated = async () => {
     const guestSession = localStorage.getItem('guest_session_id');
     if (!guestSession) return;
 
-    const fetchRated = async () => {
-      setLoading(true);
-      try {
-        const res = await fetch(
-          `${BASE_URL}/guest_session/${guestSession}/rated/movies?api_key=${API_KEY}&language=ru-RU`
-        );
-        const data = await res.json();
-        setMovies(data.results || []);
-      } catch (error) {
-        console.error('Failed to fetch rated movies', error);
-      } finally {
-        setLoading(false);
+    setLoading(true);
+    try {
+      const res = await fetch(
+        `${BASE_URL}/guest_session/${guestSession}/rated/movies?api_key=${API_KEY}&language=ru-RU`
+      );
+      const data = await res.json();
+      setMovies(data.results || []);
+    } catch (error) {
+      console.error('Failed to fetch rated movies', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchRated();
+
+    const handleVisibility = () => {
+      if (document.visibilityState === 'visible') {
+        fetchRated();
       }
     };
 
-    fetchRated();
-  }, [API_KEY, BASE_URL]);
+    document.addEventListener('visibilitychange', handleVisibility);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibility);
+    };
+  }, []);
 
   if (!loading && movies.length === 0) {
     return <Empty description="No rated movies yet" />;

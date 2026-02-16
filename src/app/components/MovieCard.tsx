@@ -9,6 +9,16 @@ import { truncateText } from '../utils/truncateText';
 import { useGenres } from '../context/GenreContext';
 import styles from './MovieCard.module.css';
 
+interface MovieData {
+  id: number;
+  title: string;
+  overview: string;
+  poster_path: string | null;
+  release_date: string;
+  vote_average: number;
+  genre_ids?: number[];
+}
+
 interface MovieCardProps {
   id: number;
   title: string;
@@ -18,6 +28,8 @@ interface MovieCardProps {
   vote_average: number;
   genre_ids?: number[];
   rating?: number;
+  onRemove?: (id: number) => void;
+  onAdd?: (movie: MovieData) => void;
 }
 
 export default function MovieCard({
@@ -29,6 +41,8 @@ export default function MovieCard({
   vote_average,
   genre_ids = [],
   rating,
+  onRemove,
+  onAdd,
 }: MovieCardProps) {
   const { genres } = useGenres();
   const [userRating, setUserRating] = useState<number>(rating || 0);
@@ -38,7 +52,7 @@ export default function MovieCard({
 
   const imageUrl = poster_path
     ? `https://image.tmdb.org/t/p/w500${poster_path}`
-    : 'https://via.placeholder.com/150x200?text=No+Image';
+    : '/placeholder.png';
 
   const releaseDate = release_date
     ? format(parseISO(release_date), 'MMMM d, yyyy', { locale: ru })
@@ -56,15 +70,45 @@ export default function MovieCard({
     if (!guestSession) return;
 
     try {
+      if (value === 0) {
+        await fetch(
+          `${BASE_URL}/movie/${id}/rating?api_key=${API_KEY}&guest_session_id=${guestSession}`,
+          { method: 'DELETE' }
+        );
+
+        setUserRating(0);
+
+        if (onRemove) {
+          onRemove(id);
+        }
+
+        return;
+      }
+
+      if (value < 0.5 || value > 10) return;
+
       await fetch(
         `${BASE_URL}/movie/${id}/rating?api_key=${API_KEY}&guest_session_id=${guestSession}`,
         {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json;charset=utf-8' },
           body: JSON.stringify({ value }),
         }
       );
+
       setUserRating(value);
+
+      if (onAdd) {
+        onAdd({
+          id,
+          title,
+          overview,
+          poster_path,
+          release_date,
+          vote_average,
+          genre_ids,
+        });
+      }
     } catch (error) {
       console.error('Failed to rate movie', error);
     }
@@ -74,7 +118,6 @@ export default function MovieCard({
 
   return (
     <div className={styles.card}>
-      {/* рейтинг — как было */}
       <div
         className={styles.ratingCircle}
         style={{ backgroundColor: getRatingColor(vote_average) }}
@@ -96,10 +139,13 @@ export default function MovieCard({
           ))}
         </div>
 
-        <p className={styles.overview}>{truncateText(overview, 150)}</p>
+        <p className={styles.overview}>
+          {truncateText(overview, 150)}
+        </p>
 
         <Rate
           allowHalf
+          allowClear
           count={10}
           value={userRating}
           onChange={handleRate}
