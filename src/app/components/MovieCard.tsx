@@ -139,9 +139,7 @@ export default function MovieCard({
           ))}
         </div>
 
-        <p className={styles.overview}>
-          {truncateText(overview, 150)}
-        </p>
+        <p className={styles.overview}>{truncateText(overview, 150)}</p>
 
         <Rate
           allowHalf
