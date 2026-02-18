@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Row, Col, Empty, Spin } from 'antd';
 import MovieCard from './MovieCard';
 
@@ -22,7 +22,7 @@ export default function RatedMovieList() {
   const API_KEY = process.env.NEXT_PUBLIC_MOVIEDB_API_KEY;
   const BASE_URL = process.env.NEXT_PUBLIC_MOVIEDB_API_BASE_URL;
 
-  const fetchRated = async () => {
+  const fetchRated = useCallback(async () => {
     const guestSession = localStorage.getItem('guest_session_id');
     if (!guestSession) return;
 
@@ -38,7 +38,7 @@ export default function RatedMovieList() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [API_KEY, BASE_URL]);
 
   useEffect(() => {
     fetchRated();
@@ -54,7 +54,7 @@ export default function RatedMovieList() {
     return () => {
       document.removeEventListener('visibilitychange', handleVisibility);
     };
-  }, []);
+  }, [fetchRated]);
 
   if (!loading && movies.length === 0) {
     return <Empty description="No rated movies yet" />;
