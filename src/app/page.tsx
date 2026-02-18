@@ -83,12 +83,7 @@ export default function Page() {
             <MovieList initialMovies={movies} />
 
             <div style={{ textAlign: 'center', marginTop: 24 }}>
-              <Pagination
-                current={page}
-                pageSize={20}
-                total={200}
-                onChange={(p) => setPage(p)}
-              />
+              <Pagination current={page} pageSize={20} total={200} onChange={(p) => setPage(p)} />
             </div>
           </Spin>
         </>
