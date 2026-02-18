@@ -25,7 +25,7 @@ export default function Page() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [query, setQuery] = useState('return');
+  const [query, setQuery] = useState(''); // ✅ ПУСТОЙ ЗАПРОС
   const [page, setPage] = useState(1);
 
   const fetchMovies = async (searchQuery: string, pageNumber: number) => {
@@ -33,12 +33,14 @@ export default function Page() {
     setError('');
 
     try {
-      const response = await fetch(
-        `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(
-          searchQuery
-        )}&page=${pageNumber}&language=ru-RU`
-      );
+      const endpoint =
+        searchQuery.trim() === ''
+          ? `${BASE_URL}/movie/popular?api_key=${API_KEY}&page=${pageNumber}&language=ru-RU`
+          : `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(
+              searchQuery
+            )}&page=${pageNumber}&language=ru-RU`;
 
+      const response = await fetch(endpoint);
       const data = await response.json();
       setMovies(data.results || []);
     } catch {
@@ -70,7 +72,7 @@ export default function Page() {
           <div style={{ marginBottom: 16 }}>
             <Input
               placeholder="Search movies..."
-              defaultValue={query}
+              value={query} // ✅ теперь управляемый input
               onChange={(e) => debouncedSearch(e.target.value)}
             />
           </div>
@@ -81,7 +83,12 @@ export default function Page() {
             <MovieList initialMovies={movies} />
 
             <div style={{ textAlign: 'center', marginTop: 24 }}>
-              <Pagination current={page} pageSize={20} total={200} onChange={(p) => setPage(p)} />
+              <Pagination
+                current={page}
+                pageSize={20}
+                total={200}
+                onChange={(p) => setPage(p)}
+              />
             </div>
           </Spin>
         </>

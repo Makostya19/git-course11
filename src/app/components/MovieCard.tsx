@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { format, parseISO } from 'date-fns';
 import { ru } from 'date-fns/locale';
@@ -8,16 +8,6 @@ import { Rate, Tag } from 'antd';
 import { truncateText } from '../utils/truncateText';
 import { useGenres } from '../context/GenreContext';
 import styles from './MovieCard.module.css';
-
-interface MovieData {
-  id: number;
-  title: string;
-  overview: string;
-  poster_path: string | null;
-  release_date: string;
-  vote_average: number;
-  genre_ids?: number[];
-}
 
 interface MovieCardProps {
   id: number;
@@ -29,7 +19,15 @@ interface MovieCardProps {
   genre_ids?: number[];
   rating?: number;
   onRemove?: (id: number) => void;
-  onAdd?: (movie: MovieData) => void;
+  onAdd?: (movie: {
+    id: number;
+    title: string;
+    overview: string;
+    poster_path: string | null;
+    release_date: string;
+    vote_average: number;
+    genre_ids?: number[];
+  }) => void;
 }
 
 export default function MovieCard({
@@ -45,7 +43,11 @@ export default function MovieCard({
   onAdd,
 }: MovieCardProps) {
   const { genres } = useGenres();
-  const [userRating, setUserRating] = useState<number>(rating || 0);
+  const [userRating, setUserRating] = useState<number>(rating ?? vote_average);
+
+  useEffect(() => {
+    setUserRating(rating ?? vote_average);
+  }, [rating, vote_average]);
 
   const API_KEY = process.env.NEXT_PUBLIC_MOVIEDB_API_KEY;
   const BASE_URL = process.env.NEXT_PUBLIC_MOVIEDB_API_BASE_URL;
@@ -76,7 +78,7 @@ export default function MovieCard({
           { method: 'DELETE' }
         );
 
-        setUserRating(0);
+        setUserRating(vote_average);
 
         if (onRemove) {
           onRemove(id);
