@@ -25,7 +25,7 @@ export default function Page() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [query, setQuery] = useState(''); // ✅ ПУСТОЙ ЗАПРОС
+  const [query, setQuery] = useState('');
   const [page, setPage] = useState(1);
 
   const fetchMovies = async (searchQuery: string, pageNumber: number) => {
@@ -72,7 +72,7 @@ export default function Page() {
           <div style={{ marginBottom: 16 }}>
             <Input
               placeholder="Search movies..."
-              value={query} // ✅ теперь управляемый input
+              value={query}
               onChange={(e) => debouncedSearch(e.target.value)}
             />
           </div>
@@ -83,7 +83,12 @@ export default function Page() {
             <MovieList initialMovies={movies} />
 
             <div style={{ textAlign: 'center', marginTop: 24 }}>
-              <Pagination current={page} pageSize={20} total={200} onChange={(p) => setPage(p)} />
+              <Pagination
+                current={page}
+                pageSize={20}
+                total={200}
+                onChange={(p) => setPage(p)}
+              />
             </div>
           </Spin>
         </>
@@ -98,7 +103,11 @@ export default function Page() {
 
   return (
     <AntdLayout>
-      <Tabs defaultActiveKey="1" items={tabItems} />
+      <Tabs
+        defaultActiveKey="1"
+        items={tabItems}
+        destroyInactiveTabPane
+      />
     </AntdLayout>
   );
 }
